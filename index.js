@@ -1,37 +1,22 @@
-const express = require('express');
-const { MongoClient } = require('mongodb');
-require('dotenv').config();
-const mongoose = require('mongoose');
-const PORT = process.env.PORT || 5000;
-const uri = process.env.DB_URI;
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("Connecté à MongoDB Atlas"))
-  .catch(err => console.error("Erreur de connexion :", err));
+dotenv.config();
+import express from 'express';
+import dotenv from 'dotenv';
+import  {connectDB} from './config/database.js';
+import authRoutes from './src/routes/authRoutes.js';
 
-async function connectToDB() {
-  try {
-    // Créez une instance de client MongoDB
-    const client = new MongoClient(uri);
-
-    // Connexion au cluster
-    await client.connect();
-    console.log("Connecté à MongoDB Atlas");
-    const db = client.db('Bibliocornerbd');  
-    const collection = db.collection('users');  
-
-    // close connexion 
-    await client.close();
-  } catch (err) {
-    console.error("Erreur de connexion : ", err);
-  }
-}
+const app= express();
+const PORT = process.env.PORT || 4000;
 
 
-connectToDB();
+app.use(express.json());
+
+connectDB();
 
 app.get('/', (req, res) => {
-  res.send('Hello World!' + PORT);
+  res.send('Hello World!');
 });
+
+app.use('/api/auth', authRoutes);
 
 app.listen(PORT, () => {
   console.log(`Le serveur écoute sur le port ${PORT}`);
