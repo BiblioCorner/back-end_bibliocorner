@@ -32,7 +32,7 @@
       website: {
         type: String,
         required: false,
-        match: [/^https?:\/\/[a-zA-Z0-9-_.]+(?:\.[a-zA-Z0-9-]+)+$/, 'Veuillez fournir une URL valide.'],
+        //match: [/^https?:\/\/[^\s/$.?#].[^\s]*$/, 'Veuillez fournir une URL valide.'],
       },
       opening_hours: [{
         day: {
@@ -57,7 +57,7 @@
       phone: {
         type: String,
         required: false,
-        match: [/^\+?[1-9]\d{1,14}$/, 'Veuillez fournir un numéro de téléphone valide.'],  
+        //match: [/^\+?[1-9]\d{1,14}$/, 'Veuillez fournir un numéro de téléphone valide.'],  
       },
       services: {
         type: String,
