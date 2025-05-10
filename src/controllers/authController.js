@@ -20,9 +20,9 @@ export async function signup(req, res) {
       password,
       user_description,
       profile_type,
-      user_pic,
       role,
       linkedin} = req.body;
+    const user_pic = req.file ? req.file.filename : '';
     const existingUser = await User.findOne({email});
     if (existingUser) {
       return res.status(400).json({ message: 'Utilisateur déjà existant' });
@@ -105,4 +105,35 @@ export async function getUserProfile(req, res) {
   }
 }
 
-export default { signup, login, getUserProfile };
+export async function updateUserProfile(req, res) {
+  try {
+    const userId = req.user.id;
+    const updatedData = req.body;
+
+    // Si une nouvelle image est uploadée
+    if (req.file) {
+      updatedData.user_pic = req.file.filename;
+    }
+
+    // Ne pas laisser changer l'email ou le mot de passe ici (optionnel mais recommandé)
+    delete updatedData.email;
+    delete updatedData.password;
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $set: updatedData },
+      { new: true, runValidators: true }
+    ).select('-password');
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'Utilisateur non trouvé' });
+    }
+
+    res.json({ message: 'Profil mis à jour', user: updatedUser });
+  } catch (error) {
+    res.status(500).json({ message: 'Erreur lors de la mise à jour', error: error.message });
+  }
+}
+
+
+export default { signup, login, getUserProfile, updateUserProfile };
