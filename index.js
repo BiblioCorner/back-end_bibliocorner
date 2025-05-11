@@ -8,10 +8,12 @@ import router from './src/routes/index.js';
 
 
 const app= express();
+const cors = require('cors');
 const PORT = process.env.PORT || 4000;
 
 
 app.use(express.json());
+app.use(cors());
 app.post('/api/seed', async (req, res) => {
   try {
     await seedDatabase(); 
