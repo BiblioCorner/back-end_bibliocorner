@@ -1,4 +1,4 @@
-import Review from '../models/Review.js';
+import Review from '../models/review.js';
 import Library from '../models/library.js';
 
 export async function addComment(req, res) {

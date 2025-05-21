@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { connectDB, disconnectDB } from '../../config/database.js';
-import Event from '../models/Event.js';
-import Review from '../models/Review.js';
+import Event from '../models/event.js';
+import Review from '../models/review.js';
 import Library from '../models/library.js'
 
 const seedDatabase = async () => {
