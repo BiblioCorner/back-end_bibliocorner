@@ -49,6 +49,25 @@ const eventController = {
       res.status(500).json({ message: "Erreur lors de la suppression de l'événement", error: error.message });
     }
   },
+
+  async getEventsByLibrary(req, res) {
+  try {
+    const { libraryId } = req.params;
+    const events = await Event.find({ library_id: libraryId }).populate('library_id');
+    
+    if (!events || events.length === 0) {
+      return res.status(404).json({ message: "Aucun événement trouvé pour cette bibliothèque" });
+    }
+
+    res.status(200).json(events);
+  } catch (error) {
+    res.status(500).json({ message: "Erreur lors de la récupération des événements par bibliothèque", error: error.message });
+  }
+}
+
 };
+
+
+
 
 export default eventController;

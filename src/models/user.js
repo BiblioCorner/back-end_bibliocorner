@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     enum: ['Student', 'Employee', 'Freelancer', 'Entrepreneur', 'Unemployed', 'Retired', 'Other'],
     required: true,
   },
-  profile_pic: { type: String, default: '' },
+  user_pic: { type: String, default: '' },
   role: { type: String, enum: ['Admin', 'User'], required: true },
   linkedin: { type: String, default: '' },
 });
