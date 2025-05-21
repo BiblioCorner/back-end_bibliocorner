@@ -18,14 +18,14 @@ import {
   deleteReview,
   updateReview,
 } from '../controllers/reviewController.js';
-import authenticate from '../middleware/authenticate.js';
+import authMiddleware from '../middlewares/authMiddleware.js';
 
 const router = Router();
 
 
-router.post('/:libraryId', authenticate, addComment);
+router.post('/:libraryId', authMiddleware, addComment);
 router.get('/:libraryId', getReviewsByLibrary);
-router.delete('/:reviewId', authenticate, deleteReview);
-router.put('/:reviewId', authenticate, updateReview);
+router.delete('/:reviewId', authMiddleware, deleteReview);
+router.put('/:reviewId', authMiddleware, updateReview);
 
 export default router;
