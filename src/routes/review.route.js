@@ -23,7 +23,7 @@ import authMiddleware from '../middlewares/authMiddleware.js';
 const router = Router();
 
 
-router.post('/:libraryId', authMiddleware, addComment);
+router.post('/:name', authMiddleware, addComment);
 router.get('/:libraryId', getReviewsByLibrary);
 router.delete('/:reviewId', authMiddleware, deleteReview);
 router.put('/:reviewId', authMiddleware, updateReview);
